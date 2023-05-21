@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
-const UsuarioSchema = mongoose.Schema({
+const ServicioSchema = mongoose.Schema({
     tematica: String,
     fecha_init: Date,
     fecha_fin: Date,
@@ -21,4 +21,4 @@ const UsuarioSchema = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model("Usuario", UsuarioSchema, "Usuario")
+module.exports = mongoose.model("Servicio", ServicioSchema, "Servicio")

@@ -5,6 +5,7 @@ const cors = require("cors");
 const platoController = require('./controllers/plato')
 const usuarioController = require('./controllers/usuario')
 const servicioController = require('./controllers/servicio')
+const reservaController = require('./controllers/reserva')
 
 mongoose.connect('mongodb://localhost:27017/Dossier',
 {useNewUrlParser: true})
@@ -25,6 +26,12 @@ mongoose.connect('mongodb://localhost:27017/Dossier',
     app.get("/servicio", servicioController.getAllServicios)
     app.post("/servicio", servicioController.createServicios)
     app.delete("/servicio/:id", servicioController.deleteServicios)
+
+    app.get("/reserva", reservaController.getAllReserva)
+    app.post("/reserva", reservaController.createReserva)
+    app.patch("/reserva/aceptar/:id", reservaController.aceptReserva)
+    app.patch("/reserva/negar/:id", reservaController.DeniegReserva)
+    app.delete("/reserva/:id", reservaController.cancelReserva)
 
 
 

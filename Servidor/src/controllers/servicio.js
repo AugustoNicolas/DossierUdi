@@ -17,7 +17,7 @@ exports.createServicios = async(req, res) =>{
         servicio.estado = 1
         const usr = await Usuario.findById(servicio.usuario_creador);
         if (usr) {
-            if(servicio.menu.len() > 0) {
+            if(servicio.menu.length > 0) {
                 await servicio.save();
                 res.send(servicio);
             }  else {
@@ -27,7 +27,8 @@ exports.createServicios = async(req, res) =>{
             res.status(404).send({error: "Usuario no encontrado"})
         }
         
-    } catch{
+    } catch(e){
+        console.log(e)
         res.status(404).send({error: "Error"})
     }
 }
