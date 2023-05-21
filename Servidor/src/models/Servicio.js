@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 
 const UsuarioSchema = mongoose.Schema({
     tematica: String,
-    fecha_init: String,
-    fecha_fin: String,
+    fecha_init: Date,
+    fecha_fin: Date,
     cupos: Number,
     cupos_disponibles: Number,
     estado: Number,
@@ -13,8 +13,10 @@ const UsuarioSchema = mongoose.Schema({
         ref: 'Usuario'
     },
     foto: Array,
-    reservas: Array,
-    menu: Array,
+    menu: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Plato'
+      }]
 
 
 })
