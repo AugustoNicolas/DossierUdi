@@ -7,7 +7,10 @@ import { ContactanosScreen } from './screens/ContactanosScreen';
 
 const Stack = createStackNavigator();
 
+
+
 export default function App() {
+  
   return (
     <NavigationContainer>
       <Stack.Navigator>
