@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { StyleSheet, Text, View, Button, Image } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { userContext } from '../context/userContext';
 
 WebBrowser.maybeCompleteAuthSession();
 //web: 130862412940-fensis5t7bpu8mh577puuplpidd95cao.apps.googleusercontent.com
 
 
 export function LoginScreen(){
+
+
   const [token, setToken] = useState("");
-  const [userInfo, setUserInfo] = useState(null);
+  const {userInfo, addUser} = useContext(userContext);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     expoClientId:"130862412940-fensis5t7bpu8mh577puuplpidd95cao.apps.googleusercontent.com"
@@ -29,7 +33,7 @@ export function LoginScreen(){
         getUserInfo(response.authentication.accessToken);
       }
     } else {
-      setUserInfo(user);
+      addUser(user);
       console.log("loaded locally");
     }
   }
@@ -52,7 +56,7 @@ export function LoginScreen(){
 
       const user = await response.json();
       await AsyncStorage.setItem("@user", JSON.stringify(user));
-      setUserInfo(user);
+      addUser(user);
     } catch (error) {
       // Add your own error handler here
     }

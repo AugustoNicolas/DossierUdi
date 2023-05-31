@@ -4,7 +4,8 @@ npm i express mongoose
 
 
 --comandos para el cliente
-
+npm install
+npm install axios
 
 // detalle de los estados 
     usuario:

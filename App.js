@@ -5,6 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from './screens/LoginScreen';
 import { ContactanosScreen } from './screens/ContactanosScreen';
 
+import { UsersProvider } from './context/userContext';
+
+
 const Stack = createStackNavigator();
 
 
@@ -12,12 +15,14 @@ const Stack = createStackNavigator();
 export default function App() {
   
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Contactanos" component={ContactanosScreen}/>
+    <UsersProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Contactanos" component={ContactanosScreen}/>
         <Stack.Screen name="Login" component={LoginScreen}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UsersProvider>
   );
 }
 
