@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const UsuarioSchema = mongoose.Schema({
-    nombre: String,
+    id_google: String,
+    email: String,
+    name: String,
     apellido: String,
-    correo: String,
     cell: String,
     is_Admin: Boolean,
     is_anfitrion: Boolean,
