@@ -8,7 +8,10 @@ export const UsersProvider = ({ children }) => {
 
   const addUser = async (user) => {
     const ur = await getUser(user)
-    await setUserInfo(ur)
+    console.log(ur)
+    if (ur){
+      await setUserInfo(ur)
+    }    
   }
 
   const value = { userInfo, addUser };

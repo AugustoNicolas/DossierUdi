@@ -12,7 +12,7 @@ exports.getAllUsuarios = async(req, res) =>{
 exports.get_and_create_Usuarios = async(req, res) =>{
     try {
         console.log(req.body)
-        let usuario = await Usuario.findById(req.body.id); //poner un find by id google.. no id generico
+        let usuario = await Usuario.findOne({id_google: req.body.id}); 
         if (!usuario) {
             usr = {
                 id_google : req.body.id,
@@ -23,10 +23,11 @@ exports.get_and_create_Usuarios = async(req, res) =>{
                 name : req.body.name,
             }
             usuario = new Usuario(usr);
+            await usuario.save();
         } 
         res.send(usuario);
-    } catch{
-        res.status(404).send({error: "Lista no encontrada"})
+    } catch(e){
+        res.status(404).send({error: e})
     }
 }
 
