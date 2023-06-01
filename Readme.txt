@@ -6,6 +6,7 @@ npm i express mongoose
 --comandos para el cliente
 npm install
 npm install axios
+npx expo install expo-font
 
 // detalle de los estados 
     usuario:

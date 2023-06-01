@@ -10,7 +10,7 @@ WebBrowser.maybeCompleteAuthSession();
 //web: 130862412940-fensis5t7bpu8mh577puuplpidd95cao.apps.googleusercontent.com
 
 
-export function LoginScreen(){
+export function LoginScreen({navigation}){
 
 
   const [token, setToken] = useState("");
@@ -35,6 +35,7 @@ export function LoginScreen(){
     } else {
       addUser(user);
       console.log("loaded locally");
+      navigation.navigate('Contactanos')
     }
   }
 
@@ -57,6 +58,7 @@ export function LoginScreen(){
       const user = await response.json();
       await AsyncStorage.setItem("@user", JSON.stringify(user));
       addUser(user);
+      navigation.navigate('Contactanos')
     } catch (error) {
       // Add your own error handler here
     }

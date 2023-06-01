@@ -6,6 +6,7 @@ import { LoginScreen } from './screens/LoginScreen';
 import { ContactanosScreen } from './screens/ContactanosScreen';
 
 import { UsersProvider } from './context/userContext';
+import { RegistroReservaScreen } from './screens/RegistroReservaScreen';
 
 
 const Stack = createStackNavigator();
@@ -18,8 +19,9 @@ export default function App() {
     <UsersProvider>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Login" component={LoginScreen}/>
+          <Stack.Screen name="RegistroReserva" component={RegistroReservaScreen}/>
           <Stack.Screen name="Contactanos" component={ContactanosScreen}/>
-        <Stack.Screen name="Login" component={LoginScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </UsersProvider>
