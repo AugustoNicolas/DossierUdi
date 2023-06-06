@@ -3,6 +3,7 @@
     "name": "DossierUdi",
     "slug": "DossierUdi",
     "version": "1.0.0",
+    "scheme":"com.harry182.DossierUdi",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
