@@ -61,39 +61,32 @@ export function LoginScreen({ navigation }) {
     promptAsync();
   };
 
-  return (
-    <View style={styles.view}>
-      {userInfo ? (
-        <View style={styles.container}>
+ return (
+  <View style={styles.view}>
+
+      <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image source={require("../logoDossier.png")} style={styles.image} />
         </View>
-        <TouchableOpacity
-          style={styles.googleButton}
-          disabled={!request}
-          onPress={handleGoogleLogin}
-        >
-          <View style={styles.buttonContainer}>
-            <Text style={styles.googleButtonText}>Ingresar con Google</Text>
-            <Icon name="google" size={30} color="#FFFFFF" />
-          </View>
-        </TouchableOpacity>
+        {request ? (
+          <TouchableOpacity
+            style={styles.googleButton}
+            onPress={handleGoogleLogin}
+          >
+            <View style={styles.buttonContainer}>
+              <Text style={styles.googleButtonText}>Ingresar con Google</Text>
+              <Icon name="google" size={30} color="#FFFFFF" />
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <Text style={styles.text}>No se ha iniciado sesión</Text>
+        )}
       </View>
-      ) : (
-        <View style={styles.card}>
-          {userInfo?.picture && (
-            <Image source={{ uri: userInfo?.picture }} style={styles.image} />
-          )}
-          <Text style={styles.text}>Email: {userInfo.email}</Text>
-          <Text style={styles.text}>
-            Verified: {userInfo.verified_email ? "yes" : "no"}
-          </Text>
-          <Text style={styles.text}>Name: {userInfo.name}</Text>
-          <Text style={styles.text}>{JSON.stringify(userInfo, null, 2)}</Text>
-        </View>
-      )}
-    </View>
-  );
+
+    
+  </View>
+);
+
   
 }
 
