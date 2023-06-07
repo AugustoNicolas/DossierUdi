@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -11,7 +11,6 @@ WebBrowser.maybeCompleteAuthSession();
 //web: 130862412940-fensis5t7bpu8mh577puuplpidd95cao.apps.googleusercontent.com
 
 export function LoginScreen({ navigation }) {
-  const [token, setToken] = useState("");
   const { userInfo, addUser } = useContext(userContext);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -20,20 +19,19 @@ export function LoginScreen({ navigation }) {
 
   useEffect(() => {
     handleEffect();
-  }, [response, token]);
+  }, [response]);
 
   async function handleEffect() {
     const user = await getLocalUser();
     console.log("user", user);
     if (!user) {
       if (response?.type === "success") {
-        // setToken(response.authentication.accessToken);
         getUserInfo(response.authentication.accessToken);
       }
     } else {
       addUser(user);
       console.log("loaded locally");
-      navigation.navigate('Contactanos');
+      navigation.replace('Contactanos');
     }
   }
 
@@ -53,7 +51,7 @@ export function LoginScreen({ navigation }) {
       const user = await response.json();
       await AsyncStorage.setItem("@user", JSON.stringify(user));
       addUser(user);
-      navigation.navigate('Contactanos');
+      navigation.replace('Contactanos');
     } catch (error) {
       // Add your own error handler here
     }
@@ -63,28 +61,24 @@ export function LoginScreen({ navigation }) {
     promptAsync();
   };
 
-  const handleClearData = async () => {
-    await AsyncStorage.removeItem("@user");
-  };
-
   return (
     <View style={styles.view}>
-      {!userInfo ? (
+      {userInfo ? (
         <View style={styles.container}>
-          <View style={styles.imageContainer}>
-            <Image source={require("../logoDossier.png")} style={styles.image} />
-          </View>
-          <TouchableOpacity
-            style={styles.googleButton}
-            disabled={!request}
-            onPress={handleGoogleLogin}
-          >
-            <View style={styles.buttonContainer}>
-              <Text style={styles.googleButtonText}>Ingresar con Google</Text>
-              <Icon name="google" size={30} color="#FFFFFF"/>
-            </View>
-          </TouchableOpacity>
+        <View style={styles.imageContainer}>
+          <Image source={require("../logoDossier.png")} style={styles.image} />
         </View>
+        <TouchableOpacity
+          style={styles.googleButton}
+          disabled={!request}
+          onPress={handleGoogleLogin}
+        >
+          <View style={styles.buttonContainer}>
+            <Text style={styles.googleButtonText}>Ingresar con Google</Text>
+            <Icon name="google" size={30} color="#FFFFFF" />
+          </View>
+        </TouchableOpacity>
+      </View>
       ) : (
         <View style={styles.card}>
           {userInfo?.picture && (
@@ -98,18 +92,16 @@ export function LoginScreen({ navigation }) {
           <Text style={styles.text}>{JSON.stringify(userInfo, null, 2)}</Text>
         </View>
       )}
-      <TouchableOpacity style={styles.limpiarButton} onPress={handleClearData}>
-        <Text style={styles.limpiarButtonText}>Limpiar datos (debes recargar la app)</Text>
-      </TouchableOpacity>
     </View>
   );
+  
 }
 
-const styles = StyleSheet.create({
+const styles = {
   view: {
     flex: 1,
-    backgroundColor: "#000000",
     alignItems: "center",
+    backgroundColor: "#000000",
     justifyContent: "center",
   },
   container: {
@@ -118,6 +110,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: "bold",
+    color:"white"
   },
   card: {
     borderWidth: 1,
@@ -146,21 +139,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginRight:10
   },
-  limpiarButton: {
-    backgroundColor: "#C0BFB2",
-    borderRadius: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginTop: 10,
-  },
-  limpiarButtonText:{
-    fontSize: 20,
-    color: "#000000",
-    textAlign: "center",
-  },
   buttonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+};

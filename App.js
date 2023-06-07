@@ -20,8 +20,8 @@ export default function App() {
     <UsersProvider>
       <NavigationContainer>
         <Stack.Navigator>
+        <Stack.Screen name="Login" component={LoginScreen}/>
           <Stack.Screen name="Inicio" component={InicioScreen}/>
-          <Stack.Screen name="Login" component={LoginScreen}/>
           <Stack.Screen name="RegistroReserva" component={RegistroReservaScreen}/>
           <Stack.Screen name="Contactanos" component={ContactanosScreen}/>
         </Stack.Navigator>

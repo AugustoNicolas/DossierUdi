@@ -1,9 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Image, Pressable, Linking, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Linking } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from '@react-navigation/native';
 
-export const ContactanosScreen = ({ navigation }) => {
+export const ContactanosScreen = () => {
+  const navigation = useNavigation();
+
   const handleInstagramPress = () => {
     const url = "https://www.instagram.com/restaurante.escuela.udi/";
     Linking.openURL(url);
@@ -22,30 +25,33 @@ export const ContactanosScreen = ({ navigation }) => {
 
   const handleLogout = async () => {
     await AsyncStorage.removeItem("@user");
-    navigation.navigate('Login');
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
   };
 
   return (
     <View style={styles.view}>
       <View style={styles.iconContainer}>
         <View style={styles.iconButton}>
-          <Pressable onPress={handleInstagramPress}>
+          <TouchableOpacity onPress={handleInstagramPress}>
             <Icon name="instagram" size={50} color="#FFFFFF" />
-          </Pressable>
+          </TouchableOpacity>
           <Text style={styles.iconText}>Instagram</Text>
         </View>
 
         <View style={styles.iconButtonCenter}>
-          <Pressable onPress={handleWhatsappPress}>
+          <TouchableOpacity onPress={handleWhatsappPress}>
             <Icon name="whatsapp" size={50} color="#FFFFFF" />
-          </Pressable>
+          </TouchableOpacity>
           <Text style={styles.iconText}>WhatsApp</Text>
         </View>
 
         <View style={styles.iconButton}>
-          <Pressable onPress={handleFacebookPress}>
+          <TouchableOpacity onPress={handleFacebookPress}>
             <Icon name="facebook-official" size={50} color="#FFFFFF" />
-          </Pressable>
+          </TouchableOpacity>
           <Text style={styles.iconText}>Facebook</Text>
         </View>
       </View>
@@ -62,14 +68,14 @@ export const ContactanosScreen = ({ navigation }) => {
           Maria, Mater Dei, ora pro nobis peccatoribus, nunc, et in hora mortis nostrae.
         </Text>
       </View>
-      <TouchableOpacity onPress={handleLogout}>
-        <Text style={styles.logoutButton}>Desloguearse</Text>
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+        <Text style={styles.logoutButtonText}>Desloguearse</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = {
   view: {
     flex: 1,
     backgroundColor: "#000000",
@@ -128,8 +134,10 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     marginTop: 10,
+  },
+  logoutButtonText: {
     fontSize: 18,
     color: "#FFFFFF",
     fontWeight: "bold",
   },
-});
+};
