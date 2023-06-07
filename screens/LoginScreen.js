@@ -31,7 +31,7 @@ export function LoginScreen({ navigation }) {
     } else {
       addUser(user);
       console.log("loaded locally");
-      navigation.replace('Contactanos');
+      navigation.replace('Inicio');
     }
   }
 
@@ -51,7 +51,7 @@ export function LoginScreen({ navigation }) {
       const user = await response.json();
       await AsyncStorage.setItem("@user", JSON.stringify(user));
       addUser(user);
-      navigation.replace('Contactanos');
+      navigation.replace('Inicio');
     } catch (error) {
       // Add your own error handler here
     }
